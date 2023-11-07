@@ -1,0 +1,296 @@
+[gd_resource type="FontFile" load_steps=2 format=3 uid="uid://dkw44aldm6vfy"]
+
+[sub_resource type="GDScript" id="GDScript_4hf3g"]
+script/source = "tool
+extends BitmapFont
+
+export(Texture) var texture = null setget changeTexture
+export(String, MULTILINE) var characterMap setget changeMap
+export(Vector2) var size setget changeSize
+export(bool) var monospace = true setget changeMonospace
+
+func changeTexture(value):
+	texture = value
+	if texture:
+		update()
+
+func changeMap(value):
+	characterMap = value
+	update()
+
+func changeSize(value):
+	size = value
+	update()
+
+func changeMonospace(value):
+	monospace = value
+	update()
+
+func update():
+	clear()
+	if texture is Texture:
+		add_texture(texture)
+		var _characterArray = characterMap.to_utf8()
+		for i in _characterArray.size():
+			var _offsetLeft : int
+			var _offsetRight : int
+			
+			if !monospace:
+				var data = texture.get_data()
+				data.lock()
+				
+				var _hit : bool
+				
+				# Left
+				for _x in size.x:
+					if _hit: break
+					for _y in size.y:
+						var _px = data.get_pixel(fmod(size.x * i, texture.get_width()) + _x, floor((size.x * i)/texture.get_width()) * size.y + _y)
+						if _px.a != 0:
+							_hit = true
+							_offsetLeft = _x
+							break
+				_hit = false
+				
+				# Right
+				for _x in size.x:
+					if _hit: break
+					for _y in size.y:
+						var _px = data.get_pixel(fmod(size.x * i, texture.get_width()) + ((size.x - 1) - _x), floor((size.x * i)/texture.get_width()) * size.y + _y)
+						if _px.a != 0:
+							_hit = true
+							_offsetRight = _x
+							break
+				
+				data.unlock()
+			
+			var _rect = Rect2(fmod(size.x * i + _offsetLeft, texture.get_width()), floor((size.x * i)/texture.get_width()) * size.y, size.x - (_offsetLeft + _offsetRight), size.y)
+			add_char(_characterArray[i], 0, _rect)
+		update_changes()
+"
+
+[resource]
+fixed_size = 16
+face_index = null
+embolden = null
+transform = null
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 16.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/glyphs/120/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/120/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/120/size = Vector2(0, 0)
+cache/0/16/0/glyphs/120/uv_rect = Rect2(80, 16, 8, 8)
+cache/0/16/0/glyphs/120/texture_idx = 0
+cache/0/16/0/glyphs/112/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/112/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/112/size = Vector2(0, 0)
+cache/0/16/0/glyphs/112/uv_rect = Rect2(16, 16, 8, 8)
+cache/0/16/0/glyphs/112/texture_idx = 0
+cache/0/16/0/glyphs/32/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/32/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/32/size = Vector2(0, 0)
+cache/0/16/0/glyphs/32/uv_rect = Rect2(112, 8, 8, 8)
+cache/0/16/0/glyphs/32/texture_idx = 0
+cache/0/16/0/glyphs/104/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/104/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/104/size = Vector2(0, 0)
+cache/0/16/0/glyphs/104/uv_rect = Rect2(56, 8, 8, 8)
+cache/0/16/0/glyphs/104/texture_idx = 0
+cache/0/16/0/glyphs/64/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/64/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/64/size = Vector2(0, 0)
+cache/0/16/0/glyphs/64/uv_rect = Rect2(112, 0, 8, 8)
+cache/0/16/0/glyphs/64/texture_idx = 0
+cache/0/16/0/glyphs/56/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/56/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/56/size = Vector2(0, 0)
+cache/0/16/0/glyphs/56/uv_rect = Rect2(64, 0, 8, 8)
+cache/0/16/0/glyphs/56/texture_idx = 0
+cache/0/16/0/glyphs/48/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/48/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/48/size = Vector2(0, 0)
+cache/0/16/0/glyphs/48/uv_rect = Rect2(0, 0, 8, 8)
+cache/0/16/0/glyphs/48/texture_idx = 0
+cache/0/16/0/glyphs/121/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/121/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/121/size = Vector2(0, 0)
+cache/0/16/0/glyphs/121/uv_rect = Rect2(88, 16, 8, 8)
+cache/0/16/0/glyphs/121/texture_idx = 0
+cache/0/16/0/glyphs/113/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/113/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/113/size = Vector2(0, 0)
+cache/0/16/0/glyphs/113/uv_rect = Rect2(24, 16, 8, 8)
+cache/0/16/0/glyphs/113/texture_idx = 0
+cache/0/16/0/glyphs/105/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/105/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/105/size = Vector2(0, 0)
+cache/0/16/0/glyphs/105/uv_rect = Rect2(64, 8, 8, 8)
+cache/0/16/0/glyphs/105/texture_idx = 0
+cache/0/16/0/glyphs/97/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/97/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/97/size = Vector2(0, 0)
+cache/0/16/0/glyphs/97/uv_rect = Rect2(0, 8, 8, 8)
+cache/0/16/0/glyphs/97/texture_idx = 0
+cache/0/16/0/glyphs/57/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/57/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/57/size = Vector2(0, 0)
+cache/0/16/0/glyphs/57/uv_rect = Rect2(72, 0, 8, 8)
+cache/0/16/0/glyphs/57/texture_idx = 0
+cache/0/16/0/glyphs/49/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/49/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/49/size = Vector2(0, 0)
+cache/0/16/0/glyphs/49/uv_rect = Rect2(8, 0, 8, 8)
+cache/0/16/0/glyphs/49/texture_idx = 0
+cache/0/16/0/glyphs/122/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/122/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/122/size = Vector2(0, 0)
+cache/0/16/0/glyphs/122/uv_rect = Rect2(96, 16, 8, 8)
+cache/0/16/0/glyphs/122/texture_idx = 0
+cache/0/16/0/glyphs/114/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/114/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/114/size = Vector2(0, 0)
+cache/0/16/0/glyphs/114/uv_rect = Rect2(32, 16, 8, 8)
+cache/0/16/0/glyphs/114/texture_idx = 0
+cache/0/16/0/glyphs/106/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/106/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/106/size = Vector2(0, 0)
+cache/0/16/0/glyphs/106/uv_rect = Rect2(72, 8, 8, 8)
+cache/0/16/0/glyphs/106/texture_idx = 0
+cache/0/16/0/glyphs/98/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/98/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/98/size = Vector2(0, 0)
+cache/0/16/0/glyphs/98/uv_rect = Rect2(8, 8, 8, 8)
+cache/0/16/0/glyphs/98/texture_idx = 0
+cache/0/16/0/glyphs/58/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/58/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/58/size = Vector2(0, 0)
+cache/0/16/0/glyphs/58/uv_rect = Rect2(96, 0, 8, 8)
+cache/0/16/0/glyphs/58/texture_idx = 0
+cache/0/16/0/glyphs/50/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/50/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/50/size = Vector2(0, 0)
+cache/0/16/0/glyphs/50/uv_rect = Rect2(16, 0, 8, 8)
+cache/0/16/0/glyphs/50/texture_idx = 0
+cache/0/16/0/glyphs/115/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/115/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/115/size = Vector2(0, 0)
+cache/0/16/0/glyphs/115/uv_rect = Rect2(40, 16, 8, 8)
+cache/0/16/0/glyphs/115/texture_idx = 0
+cache/0/16/0/glyphs/107/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/107/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/107/size = Vector2(0, 0)
+cache/0/16/0/glyphs/107/uv_rect = Rect2(80, 8, 8, 8)
+cache/0/16/0/glyphs/107/texture_idx = 0
+cache/0/16/0/glyphs/99/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/99/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/99/size = Vector2(0, 0)
+cache/0/16/0/glyphs/99/uv_rect = Rect2(16, 8, 8, 8)
+cache/0/16/0/glyphs/99/texture_idx = 0
+cache/0/16/0/glyphs/51/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/51/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/51/size = Vector2(0, 0)
+cache/0/16/0/glyphs/51/uv_rect = Rect2(24, 0, 8, 8)
+cache/0/16/0/glyphs/51/texture_idx = 0
+cache/0/16/0/glyphs/116/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/116/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/116/size = Vector2(0, 0)
+cache/0/16/0/glyphs/116/uv_rect = Rect2(48, 16, 8, 8)
+cache/0/16/0/glyphs/116/texture_idx = 0
+cache/0/16/0/glyphs/108/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/108/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/108/size = Vector2(0, 0)
+cache/0/16/0/glyphs/108/uv_rect = Rect2(88, 8, 8, 8)
+cache/0/16/0/glyphs/108/texture_idx = 0
+cache/0/16/0/glyphs/100/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/100/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/100/size = Vector2(0, 0)
+cache/0/16/0/glyphs/100/uv_rect = Rect2(24, 8, 8, 8)
+cache/0/16/0/glyphs/100/texture_idx = 0
+cache/0/16/0/glyphs/44/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/44/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/44/size = Vector2(0, 0)
+cache/0/16/0/glyphs/44/uv_rect = Rect2(80, 0, 8, 8)
+cache/0/16/0/glyphs/44/texture_idx = 0
+cache/0/16/0/glyphs/52/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/52/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/52/size = Vector2(0, 0)
+cache/0/16/0/glyphs/52/uv_rect = Rect2(32, 0, 8, 8)
+cache/0/16/0/glyphs/52/texture_idx = 0
+cache/0/16/0/glyphs/117/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/117/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/117/size = Vector2(0, 0)
+cache/0/16/0/glyphs/117/uv_rect = Rect2(56, 16, 8, 8)
+cache/0/16/0/glyphs/117/texture_idx = 0
+cache/0/16/0/glyphs/109/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/109/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/109/size = Vector2(0, 0)
+cache/0/16/0/glyphs/109/uv_rect = Rect2(96, 8, 8, 8)
+cache/0/16/0/glyphs/109/texture_idx = 0
+cache/0/16/0/glyphs/101/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/101/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/101/size = Vector2(0, 0)
+cache/0/16/0/glyphs/101/uv_rect = Rect2(32, 8, 8, 8)
+cache/0/16/0/glyphs/101/texture_idx = 0
+cache/0/16/0/glyphs/45/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/45/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/45/size = Vector2(0, 0)
+cache/0/16/0/glyphs/45/uv_rect = Rect2(104, 0, 8, 8)
+cache/0/16/0/glyphs/45/texture_idx = 0
+cache/0/16/0/glyphs/53/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/53/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/53/size = Vector2(0, 0)
+cache/0/16/0/glyphs/53/uv_rect = Rect2(40, 0, 8, 8)
+cache/0/16/0/glyphs/53/texture_idx = 0
+cache/0/16/0/glyphs/118/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/118/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/118/size = Vector2(0, 0)
+cache/0/16/0/glyphs/118/uv_rect = Rect2(64, 16, 8, 8)
+cache/0/16/0/glyphs/118/texture_idx = 0
+cache/0/16/0/glyphs/110/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/110/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/110/size = Vector2(0, 0)
+cache/0/16/0/glyphs/110/uv_rect = Rect2(0, 16, 8, 8)
+cache/0/16/0/glyphs/110/texture_idx = 0
+cache/0/16/0/glyphs/102/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/102/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/102/size = Vector2(0, 0)
+cache/0/16/0/glyphs/102/uv_rect = Rect2(40, 8, 8, 8)
+cache/0/16/0/glyphs/102/texture_idx = 0
+cache/0/16/0/glyphs/46/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/46/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/46/size = Vector2(0, 0)
+cache/0/16/0/glyphs/46/uv_rect = Rect2(88, 0, 8, 8)
+cache/0/16/0/glyphs/46/texture_idx = 0
+cache/0/16/0/glyphs/54/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/54/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/54/size = Vector2(0, 0)
+cache/0/16/0/glyphs/54/uv_rect = Rect2(48, 0, 8, 8)
+cache/0/16/0/glyphs/54/texture_idx = 0
+cache/0/16/0/glyphs/119/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/119/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/119/size = Vector2(0, 0)
+cache/0/16/0/glyphs/119/uv_rect = Rect2(72, 16, 8, 8)
+cache/0/16/0/glyphs/119/texture_idx = 0
+cache/0/16/0/glyphs/111/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/111/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/111/size = Vector2(0, 0)
+cache/0/16/0/glyphs/111/uv_rect = Rect2(8, 16, 8, 8)
+cache/0/16/0/glyphs/111/texture_idx = 0
+cache/0/16/0/glyphs/103/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/103/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/103/size = Vector2(0, 0)
+cache/0/16/0/glyphs/103/uv_rect = Rect2(48, 8, 8, 8)
+cache/0/16/0/glyphs/103/texture_idx = 0
+cache/0/16/0/glyphs/55/advance = Vector2(8, 0)
+cache/0/16/0/glyphs/55/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/55/size = Vector2(0, 0)
+cache/0/16/0/glyphs/55/uv_rect = Rect2(56, 0, 8, 8)
+cache/0/16/0/glyphs/55/texture_idx = 0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+script = SubResource("GDScript_4hf3g")
+characterMap = "0123456789,.:-@abcdefghijklm  nopqrstuvwxyz"
+size = Vector2(8, 8)
+monospace = true

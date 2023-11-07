@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhgfova83ux56"]
+
+[ext_resource type="Script" path="res://scenes/matching/cursor.gd" id="1_33q6i"]
+[ext_resource type="Texture2D" uid="uid://bgup01dre4xdk" path="res://assets/images/theduck/cursor_duck.png" id="2_y7tc6"]
+[ext_resource type="AudioStream" uid="uid://bt7bw8vyvggtc" path="res://assets/sfx/crash3.wav" id="3_muxsf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pm67d"]
+size = Vector2(8, 8)
+
+[node name="Cursor" type="CharacterBody2D"]
+z_index = 1
+script = ExtResource("1_33q6i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_y7tc6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pm67d")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_muxsf")

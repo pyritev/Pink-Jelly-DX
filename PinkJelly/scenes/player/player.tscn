@@ -1,0 +1,262 @@
+[gd_scene load_steps=30 format=3 uid="uid://brugnrgwx16j7"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_ratl1"]
+[ext_resource type="Texture2D" uid="uid://bekxpa4534042" path="res://assets/images/adventure/jelly.png" id="2_ao48b"]
+[ext_resource type="PackedScene" uid="uid://bg0r2jhnba001" path="res://scenes/hud.tscn" id="2_nw27g"]
+[ext_resource type="AudioStream" uid="uid://bcnagytwfd7ev" path="res://assets/sfx/jellydie.wav" id="3_1r8av"]
+[ext_resource type="AudioStream" uid="uid://l1x8u6xtd3gi" path="res://assets/sfx/jump.wav" id="3_6gcx3"]
+[ext_resource type="Script" path="res://scenes/player/state_machine.gd" id="4_2rrq6"]
+[ext_resource type="AudioStream" uid="uid://b4tfte2gpitfn" path="res://assets/sfx/powerup.wav" id="4_dtc6o"]
+[ext_resource type="AudioStream" uid="uid://c525s2yu0664a" path="res://assets/sfx/door_open.wav" id="4_xm7t8"]
+[ext_resource type="AudioStream" uid="uid://ymof3hhfqr7l" path="res://assets/sfx/superjump.wav" id="5_del14"]
+[ext_resource type="Script" path="res://scenes/player/idle_state.gd" id="5_lnijk"]
+[ext_resource type="Script" path="res://scenes/player/walking_state.gd" id="6_murlh"]
+[ext_resource type="AudioStream" uid="uid://gcokuud1vni0" path="res://assets/sfx/crash.wav" id="6_wckyx"]
+[ext_resource type="Script" path="res://scenes/player/crouch_state.gd" id="7_663du"]
+[ext_resource type="AudioStream" uid="uid://dymjb8nccciof" path="res://assets/sfx/fall.wav" id="7_uiy7d"]
+[ext_resource type="Script" path="res://scenes/player/death_state.gd" id="8_0jhit"]
+[ext_resource type="Script" path="res://scenes/player/groundpound_state.gd" id="11_bjfav"]
+[ext_resource type="Script" path="res://scenes/player/jump_state.gd" id="11_hy0kc"]
+[ext_resource type="Script" path="res://scenes/player/bounce_state.gd" id="16_8ktfx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kn2pt"]
+size = Vector2(14, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_746n1"]
+size = Vector2(14, 23)
+
+[sub_resource type="Animation" id="Animation_2umbl"]
+resource_name = "crouch"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_eucsb"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_8mclo"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_uimb4"]
+resource_name = "walking"
+length = 0.6
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fl5mp"]
+_data = {
+"crouch": SubResource("Animation_2umbl"),
+"idle": SubResource("Animation_eucsb"),
+"jump": SubResource("Animation_8mclo"),
+"walking": SubResource("Animation_uimb4")
+}
+
+[sub_resource type="Animation" id="Animation_cbtry"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cyy30"]
+resource_name = "flicker"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_d8tjs"]
+resource_name = "power"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.435294, 0.45098, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vngas"]
+_data = {
+"default": SubResource("Animation_cbtry"),
+"flicker": SubResource("Animation_cyy30"),
+"power": SubResource("Animation_d8tjs")
+}
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 3
+script = ExtResource("1_ratl1")
+
+[node name="HUD" parent="." instance=ExtResource("2_nw27g")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_ao48b")
+hframes = 5
+frame = 2
+
+[node name="Regular" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kn2pt")
+
+[node name="Crouched" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_746n1")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_fl5mp")
+}
+
+[node name="Modulate" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vngas")
+}
+
+[node name="Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_1r8av")
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_6gcx3")
+
+[node name="Respawn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_xm7t8")
+
+[node name="Charge" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_dtc6o")
+
+[node name="SuperJump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_del14")
+volume_db = 5.0
+
+[node name="CrashSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_wckyx")
+
+[node name="FallSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_uiy7d")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_2rrq6")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("5_lnijk")
+
+[node name="Walking" type="Node" parent="StateMachine"]
+script = ExtResource("6_murlh")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("11_hy0kc")
+hori_flip = false
+
+[node name="Crouch" type="Node" parent="StateMachine"]
+script = ExtResource("7_663du")
+can_walk = false
+
+[node name="Groundpound" type="Node" parent="StateMachine"]
+script = ExtResource("11_bjfav")
+can_walk = false
+can_jump = false
+
+[node name="Death" type="Node" parent="StateMachine"]
+script = ExtResource("8_0jhit")
+can_walk = false
+
+[node name="Bounce" type="Node" parent="StateMachine"]
+script = ExtResource("16_8ktfx")
+hori_flip = false
+
+[node name="CrouchTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AftTimer" type="Timer" parent="."]
+wait_time = 0.06
+one_shot = true
+
+[node name="DeathTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="InvulnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AfterImages" type="Node2D" parent="."]
+
+[connection signal="timeout" from="CrouchTimer" to="StateMachine/Crouch" method="_on_crouch_timer_timeout"]
+[connection signal="timeout" from="CooldownTimer" to="StateMachine/Groundpound" method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="InvulnTimer" to="." method="_on_invuln_timer_timeout"]

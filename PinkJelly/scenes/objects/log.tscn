@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dspx5ieb4klrr"]
+
+[ext_resource type="Script" path="res://scenes/objects/log.gd" id="1_hio8k"]
+[ext_resource type="Texture2D" uid="uid://xhd8ati6wrcb" path="res://assets/images/adventure/log.png" id="2_rr0mx"]
+
+[node name="Log" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_hio8k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_rr0mx")
+vframes = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-32, -6, -30, -8, 26, -8, 28, -6, 28, 0, -32, 0)

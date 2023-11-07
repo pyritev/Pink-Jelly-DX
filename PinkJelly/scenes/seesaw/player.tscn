@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://dut31tfe4lqd4"]
+
+[ext_resource type="Script" path="res://scenes/seesaw/player.gd" id="1_reaw5"]
+[ext_resource type="Texture2D" uid="uid://cuq3loq557faq" path="res://assets/images/seesaw/seesaw.png" id="2_8yr4d"]
+[ext_resource type="Texture2D" uid="uid://dsaqdfjupeyvc" path="res://assets/images/seesaw/characters.png" id="3_t7pat"]
+[ext_resource type="AudioStream" uid="uid://l1x8u6xtd3gi" path="res://assets/sfx/jump.wav" id="4_10r67"]
+[ext_resource type="AudioStream" uid="uid://c8qhybcqtsg2c" path="res://assets/sfx/yoshi.wav" id="5_l1d7r"]
+[ext_resource type="AudioStream" uid="uid://c525s2yu0664a" path="res://assets/sfx/door_open.wav" id="6_xorjh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37mid"]
+size = Vector2(82, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_evgmk"]
+size = Vector2(31, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uob5t"]
+size = Vector2(33, 2)
+
+[node name="Seesaw" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_reaw5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_8yr4d")
+vframes = 3
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_37mid")
+
+[node name="Jelly" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-22, -20)
+texture = ExtResource("3_t7pat")
+hframes = 2
+vframes = 2
+
+[node name="Chicken" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(25, -20)
+texture = ExtResource("3_t7pat")
+hframes = 2
+vframes = 2
+frame = 2
+
+[node name="JellyLanding" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JellyLanding"]
+position = Vector2(-24.5, -3)
+shape = SubResource("RectangleShape2D_evgmk")
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-24.5, -3)
+stream = ExtResource("4_10r67")
+
+[node name="Land" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_l1d7r")
+volume_db = -8.0
+
+[node name="ChickenLanding" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChickenLanding"]
+position = Vector2(24.5, -3)
+shape = SubResource("RectangleShape2D_uob5t")
+
+[node name="Respawn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_xorjh")
+
+[connection signal="body_entered" from="JellyLanding" to="." method="_on_jelly_landing_body_entered"]
+[connection signal="body_entered" from="ChickenLanding" to="." method="_on_chicken_landing_body_entered"]

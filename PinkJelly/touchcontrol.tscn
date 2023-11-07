@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfq6xfkq2perj"]
+
+[ext_resource type="Texture2D" uid="uid://bmpu387woajhj" path="res://assets/images/match/cursor.png" id="1_cy6lu"]
+
+[node name="Control" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+
+[node name="UpButton" type="TouchScreenButton" parent="."]
+position = Vector2(29, 137)
+texture_normal = ExtResource("1_cy6lu")
+action = "button_up"
+
+[node name="DownButton" type="TouchScreenButton" parent="."]
+position = Vector2(25, 197)
+texture_normal = ExtResource("1_cy6lu")
+action = "button_down"
+
+[node name="LeftButton" type="TouchScreenButton" parent="."]
+position = Vector2(0, 166)
+texture_normal = ExtResource("1_cy6lu")
+action = "button_left"
+
+[node name="RightButton" type="TouchScreenButton" parent="."]
+position = Vector2(56, 168)
+texture_normal = ExtResource("1_cy6lu")
+action = "button_right"
+
+[node name="BButton" type="TouchScreenButton" parent="."]
+position = Vector2(188, 161)
+texture_normal = ExtResource("1_cy6lu")
+action = "button_b"
+
+[node name="AButton" type="TouchScreenButton" parent="."]
+position = Vector2(218, 198)
+texture_normal = ExtResource("1_cy6lu")
+action = "button_a"
+
+[node name="SelectButton" type="TouchScreenButton" parent="."]
+position = Vector2(174, 2)
+texture_normal = ExtResource("1_cy6lu")
+action = "button_select"
+
+[node name="StartButton" type="TouchScreenButton" parent="."]
+position = Vector2(217, 3)
+texture_normal = ExtResource("1_cy6lu")
+action = "button_start"

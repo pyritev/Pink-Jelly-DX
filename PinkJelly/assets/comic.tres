@@ -1,0 +1,38 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://b6spl8q4o8g5t"]
+
+[ext_resource type="FontFile" uid="uid://b4k5elk2mh00s" path="res://assets/SamuriSansAlt.ttf" id="1_io4gk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ytwkf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_srh77"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3j1c1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cmufm"]
+
+[resource]
+default_font = ExtResource("1_io4gk")
+default_font_size = 16
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(0, 0, 0, 1)
+Button/colors/icon_focus_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_normal_color = Color(0, 0, 0, 1)
+Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
+Button/constants/h_separation = 0
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("1_io4gk")
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxEmpty_ytwkf")
+Button/styles/hover = SubResource("StyleBoxEmpty_srh77")
+Button/styles/normal = SubResource("StyleBoxEmpty_3j1c1")
+Button/styles/pressed = SubResource("StyleBoxEmpty_cmufm")

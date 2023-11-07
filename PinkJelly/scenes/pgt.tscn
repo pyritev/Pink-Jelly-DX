@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://dua3wjufe5rx2"]
+
+[ext_resource type="Script" path="res://scenes/pgt.gd" id="1_iyiae"]
+[ext_resource type="Texture2D" uid="uid://bden0l3uqjtkf" path="res://assets/images/pgtlogo.png" id="1_m8l6y"]
+[ext_resource type="Texture2D" uid="uid://db3fhoga7fung" path="res://assets/images/surprise.png" id="2_e63dm"]
+[ext_resource type="AudioStream" uid="uid://bdn4jy2yp7abp" path="res://assets/music/fish.ogg" id="3_bdepc"]
+
+[node name="Secret" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_iyiae")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -128.0
+offset_top = -120.0
+offset_right = 128.0
+offset_bottom = 120.0
+color = Color(0.707031, 0.964844, 0.804688, 1)
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.560784)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -120.0
+offset_right = 120.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_e63dm")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -49.0
+offset_right = 125.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_m8l6y")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_bdepc")
+autoplay = true
+bus = &"Music"
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -128.0
+offset_top = -120.0
+offset_right = -125.0
+offset_bottom = 120.0
+color = Color(0, 0, 0, 1)

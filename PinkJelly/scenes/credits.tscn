@@ -1,0 +1,105 @@
+[gd_scene load_steps=8 format=3 uid="uid://b1cf2i2hh6jl6"]
+
+[ext_resource type="Script" path="res://scenes/credits.gd" id="1_awdt7"]
+[ext_resource type="PackedScene" uid="uid://7jjwno3po0ls" path="res://scenes/snowflake_gen.tscn" id="1_sj7yf"]
+[ext_resource type="Theme" uid="uid://b6spl8q4o8g5t" path="res://assets/comic.tres" id="3_67hwx"]
+[ext_resource type="AudioStream" uid="uid://cv2yw5kqa8ie5" path="res://assets/music/zdog.ogg" id="4_xpkct"]
+[ext_resource type="AudioStream" uid="uid://724oebl6vrdu" path="res://assets/sfx/accept.wav" id="5_xh5ms"]
+
+[sub_resource type="Animation" id="Animation_kyf4g"]
+resource_name = "scroll"
+length = 36.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(14, 135), Vector2(14, -500)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gv7i8"]
+_data = {
+"scroll": SubResource("Animation_kyf4g")
+}
+
+[node name="Title" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_awdt7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -2
+layout_mode = 1
+offset_right = 256.0
+offset_bottom = 240.0
+color = Color(0, 0.239216, 1, 1)
+
+[node name="Snowflakes" parent="ColorRect" instance=ExtResource("1_sj7yf")]
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+offset_left = 14.0
+offset_top = -500.0
+offset_right = 239.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_67hwx")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 16
+text = "- CREDITS -
+
+[PirateGameThing]
+Game program, some graphics
+ 
+[DavidPCM]
+Hummer player sprites, PirateGameThing logo
+
+- ORIGINAL GAMES BY -
+Hummer Technology Co., Ltd.
+
+- SPECIAL THANKS -
+[mikumino]
+Player state machine
+
+[Jungledrew2005]
+Surprised pig sprite
+
+[KingPepe]
+Panda Adventure sprite rip
+
+[MrNorbert1994]
+for their excellent NSF collection
+
+[NewRisingSun]
+for all of their work on NintendulatorNRS
+
+...and everyone else who worked on any of the
+tools that were used for this project
+
+Thanks for playing!"
+horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_xpkct")
+autoplay = true
+bus = &"Music"
+
+[node name="Accept" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_xh5ms")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "scroll"
+libraries = {
+"": SubResource("AnimationLibrary_gv7i8")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,0 +1,169 @@
+[gd_scene load_steps=10 format=3 uid="uid://cdp0atcsjk7jj"]
+
+[ext_resource type="Script" path="res://scenes/objects/crow.gd" id="1_r2kbe"]
+[ext_resource type="Texture2D" uid="uid://dsmsgpj3selmw" path="res://assets/images/adventure/crow.png" id="2_x3j7a"]
+
+[sub_resource type="Animation" id="Animation_x2ea0"]
+resource_name = "dive"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ocrsb"]
+resource_name = "dive_2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_awrok"]
+resource_name = "fly"
+length = 0.15
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_sp7pd"]
+resource_name = "fly_2"
+length = 0.15
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j5wwl"]
+_data = {
+"dive": SubResource("Animation_x2ea0"),
+"dive_2": SubResource("Animation_ocrsb"),
+"fly": SubResource("Animation_awrok"),
+"fly_2": SubResource("Animation_sp7pd")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ams1"]
+size = Vector2(22, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c8mhk"]
+size = Vector2(22, 1)
+
+[node name="Crow" type="CharacterBody2D"]
+position = Vector2(21, 10)
+collision_layer = 0
+collision_mask = 8388608
+script = ExtResource("1_r2kbe")
+speed = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 2)
+texture = ExtResource("2_x3j7a")
+hframes = 3
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_j5wwl")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_0ams1")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0.5, 2.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-0.5, -7.5)
+shape = SubResource("RectangleShape2D_c8mhk")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="Damage" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="Damage"]
+position = Vector2(11, 2)
+rotation = -1.5708
+scale = Vector2(4, 1)
+target_position = Vector2(0, 4)
+collision_mask = 8388609
+
+[node name="RayCast2D2" type="RayCast2D" parent="Damage"]
+position = Vector2(-11, 2)
+rotation = 1.5708
+scale = Vector2(4, 1)
+target_position = Vector2(0, 4)
+collision_mask = 8388609
+
+[node name="RayCast2D3" type="RayCast2D" parent="Damage"]
+position = Vector2(0, 7)
+scale = Vector2(16, 1)
+target_position = Vector2(0, 5)
+collision_mask = 8388609
+hit_from_inside = true
+
+[node name="Bounds" type="Node2D" parent="."]
+position = Vector2(-21, -10)
+
+[node name="RayCast2D" type="RayCast2D" parent="Bounds"]
+position = Vector2(20, 16)
+target_position = Vector2(0, 32)
+collision_mask = 2048
+
+[node name="RayCast2D2" type="RayCast2D" parent="Bounds"]
+position = Vector2(20, 7)
+rotation = 3.14159
+target_position = Vector2(0, 30)
+collision_mask = 2048
+
+[node name="ChangeTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="timeout" from="ChangeTimer" to="." method="_on_change_timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

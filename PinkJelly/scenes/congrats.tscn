@@ -1,0 +1,151 @@
+[gd_scene load_steps=8 format=3 uid="uid://bhh2ivjwak0ns"]
+
+[ext_resource type="PackedScene" uid="uid://b7ryq5bqyxpek" path="res://scenes/menu_bg.tscn" id="1_8j7u6"]
+[ext_resource type="Script" path="res://scenes/congrats.gd" id="1_qmtbq"]
+[ext_resource type="Theme" uid="uid://b6spl8q4o8g5t" path="res://assets/comic.tres" id="2_wjorl"]
+[ext_resource type="AudioStream" uid="uid://bflmn4iyvxl02" path="res://assets/music/title.ogg" id="4_cqk0n"]
+[ext_resource type="Texture2D" uid="uid://bhgkagso864du" path="res://assets/images/adventure/selector.png" id="4_yge0x"]
+[ext_resource type="AudioStream" uid="uid://c8qhybcqtsg2c" path="res://assets/sfx/yoshi.wav" id="6_qc25q"]
+[ext_resource type="AudioStream" uid="uid://724oebl6vrdu" path="res://assets/sfx/accept.wav" id="7_vcikx"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_qmtbq")
+
+[node name="ColorRect" parent="." instance=ExtResource("1_8j7u6")]
+
+[node name="TextureRect2" parent="ColorRect/TextureRect" index="0"]
+visible = false
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+visible = false
+offset_left = 1.0
+offset_right = 255.0
+offset_bottom = 240.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_wjorl")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "CONGRATULATIONS!"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_wjorl")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "YOU HAVE COMPLETED
+PINK JELLY DX!"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_wjorl")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "POINTS:"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_wjorl")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "000000
+"
+horizontal_alignment = 1
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+visible = false
+offset_left = 1.0
+offset_right = 255.0
+offset_bottom = 240.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer2/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_wjorl")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "YOUR ADVENTURE IS NOW COMPLETE"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CenterContainer2/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_wjorl")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "HOWEVER, YOU MAY CONTINUE THE
+ADVENTURE IN [ENDURANCE MODE]
+IF YOU WISH."
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 38
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_wjorl")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "[END]"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CenterContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_wjorl")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "[CONTINUE]"
+horizontal_alignment = 1
+
+[node name="Selector" type="Sprite2D" parent="CenterContainer2"]
+position = Vector2(68, 171)
+texture = ExtResource("4_yge0x")
+
+[node name="CenterContainer3" type="CenterContainer" parent="."]
+visible = false
+offset_left = 1.0
+offset_right = 255.0
+offset_bottom = 240.0
+
+[node name="Label" type="Label" parent="CenterContainer3"]
+layout_mode = 2
+theme = ExtResource("2_wjorl")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "YOU CAN END THE ADVENTURE AT
+ANY TIME BY PRESSING [SELECT]
+ON THE PAUSE MENU"
+horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_cqk0n")
+autoplay = true
+bus = &"Music"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_qc25q")
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_vcikx")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="ColorRect"]

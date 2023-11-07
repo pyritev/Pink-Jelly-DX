@@ -1,0 +1,179 @@
+[gd_scene load_steps=5 format=3 uid="uid://di4ktfwrlafvc"]
+
+[ext_resource type="Script" path="res://scenes/settings_menu.gd" id="1_b3ayt"]
+[ext_resource type="Theme" uid="uid://b6spl8q4o8g5t" path="res://assets/comic.tres" id="2_c3ocw"]
+[ext_resource type="Texture2D" uid="uid://bhgkagso864du" path="res://assets/images/adventure/selector.png" id="3_24erm"]
+[ext_resource type="AudioStream" uid="uid://c8qhybcqtsg2c" path="res://assets/sfx/yoshi.wav" id="4_6ngoi"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_b3ayt")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 240.0
+color = Color(0.734375, 0.734375, 0.734375, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 218.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="MasterVolume" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+theme = ExtResource("2_c3ocw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+text = "Master Volume"
+alignment = 0
+
+[node name="MusicVolume" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+theme = ExtResource("2_c3ocw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+text = "Music Volume"
+alignment = 0
+
+[node name="Stars" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+theme = ExtResource("2_c3ocw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+text = "Stars to Win"
+alignment = 0
+
+[node name="Lives" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+theme = ExtResource("2_c3ocw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+text = "Starting Lives"
+alignment = 0
+
+[node name="CenterContainer3" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_left = 137.0
+offset_top = 2.0
+offset_right = 256.0
+offset_bottom = 220.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer3"]
+custom_minimum_size = Vector2(20, 0)
+layout_direction = 2
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MasterLabel" type="Label" parent="CenterContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_c3ocw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "10"
+horizontal_alignment = 2
+
+[node name="MusicLabel" type="Label" parent="CenterContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_c3ocw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "10"
+horizontal_alignment = 2
+
+[node name="StarLabel" type="Label" parent="CenterContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_c3ocw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "6"
+horizontal_alignment = 2
+
+[node name="LivesLabel" type="Label" parent="CenterContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_c3ocw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "9"
+horizontal_alignment = 2
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_top = 174.0
+offset_right = 256.0
+offset_bottom = 192.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Save" type="Button" parent="CenterContainer2/HBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+theme = ExtResource("2_c3ocw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+text = "Save"
+
+[node name="Selector" type="Sprite2D" parent="."]
+position = Vector2(26, 83)
+texture = ExtResource("3_24erm")
+
+[node name="Move" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_6ngoi")
+
+[connection signal="pressed" from="CenterContainer2/HBoxContainer/Save" to="." method="_on_save_pressed"]

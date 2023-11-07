@@ -1,0 +1,239 @@
+[gd_scene load_steps=22 format=3 uid="uid://bj18fs4e2qaj1"]
+
+[ext_resource type="Script" path="res://scenes/motorboat/motorboat_game.gd" id="1_okfap"]
+[ext_resource type="Texture2D" uid="uid://bvgqnpsho8r0a" path="res://assets/images/motorboat/background.png" id="1_py61w"]
+[ext_resource type="Texture2D" uid="uid://c21mmhbv56v3a" path="res://assets/images/motorboat/arrow.png" id="2_wyk4l"]
+[ext_resource type="PackedScene" uid="uid://cskr15myh4dgg" path="res://scenes/motorboat/jelly_boat.tscn" id="3_0764e"]
+[ext_resource type="AudioStream" uid="uid://bwmy3klkv6a7m" path="res://assets/music/motorboat.ogg" id="5_od1ct"]
+[ext_resource type="AudioStream" uid="uid://bdn4jy2yp7abp" path="res://assets/music/fish.ogg" id="6_2tc24"]
+[ext_resource type="AudioStream" uid="uid://71yhtuset7qo" path="res://assets/sfx/motorboat_splash.wav" id="6_mdosh"]
+[ext_resource type="AudioStream" uid="uid://n85idqnqh6r2" path="res://assets/sfx/match.wav" id="6_u8wvv"]
+[ext_resource type="Theme" uid="uid://b6spl8q4o8g5t" path="res://assets/comic.tres" id="8_u4sk5"]
+[ext_resource type="AudioStream" uid="uid://co0va0ufyw3be" path="res://assets/sfx/fail.wav" id="10_xbc3m"]
+[ext_resource type="AudioStream" uid="uid://cptkqqyoaqdnq" path="res://assets/sfx/kong.wav" id="11_l7pvp"]
+
+[sub_resource type="Animation" id="Animation_gjr81"]
+resource_name = "blink"
+length = 0.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arrow:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_gpaqu"]
+resource_name = "stop"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arrow:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n0osv"]
+_data = {
+"blink": SubResource("Animation_gjr81"),
+"stop": SubResource("Animation_gpaqu")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqe0y"]
+size = Vector2(16, 240)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3vgj"]
+size = Vector2(288, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f84a6"]
+size = Vector2(40, 332)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c67lt"]
+size = Vector2(289, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqcoi"]
+size = Vector2(327, 50)
+
+[sub_resource type="Animation" id="Animation_wk4vv"]
+resource_name = "blink"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_52vd8"]
+_data = {
+"blink": SubResource("Animation_wk4vv")
+}
+
+[node name="Motorboat" type="Node2D"]
+script = ExtResource("1_okfap")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -2
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_py61w")
+
+[node name="Player" parent="." instance=ExtResource("3_0764e")]
+position = Vector2(134, 209)
+
+[node name="Arrow" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(224, 191)
+texture = ExtResource("2_wyk4l")
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "stop"
+libraries = {
+"": SubResource("AnimationLibrary_n0osv")
+}
+
+[node name="Bounds" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(-8, 120)
+shape = SubResource("RectangleShape2D_rqe0y")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(264, 120)
+shape = SubResource("RectangleShape2D_rqe0y")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(128, -8)
+shape = SubResource("RectangleShape2D_b3vgj")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(128, 248)
+shape = SubResource("RectangleShape2D_b3vgj")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="LeftSpawn" type="Node2D" parent="Node"]
+position = Vector2(45, 52)
+
+[node name="MiddleSpawn" type="Node2D" parent="Node"]
+position = Vector2(104, 72)
+
+[node name="RightSpawn" type="Node2D" parent="Node"]
+position = Vector2(127, 81)
+
+[node name="LastSpawn" type="Node2D" parent="Node"]
+position = Vector2(226, 66)
+
+[node name="SuccessZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SuccessZone"]
+position = Vector2(292, 151)
+shape = SubResource("RectangleShape2D_f84a6")
+
+[node name="KillZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+position = Vector2(127.5, 243.5)
+shape = SubResource("RectangleShape2D_c67lt")
+
+[node name="GhostZone" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostZone"]
+position = Vector2(147, -42)
+shape = SubResource("RectangleShape2D_gqcoi")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("5_od1ct")
+autoplay = true
+bus = &"Music"
+
+[node name="Hurry" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("6_2tc24")
+bus = &"Music"
+
+[node name="Saved" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("6_u8wvv")
+
+[node name="Splash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_mdosh")
+
+[node name="HumsLeft" type="Label" parent="."]
+offset_left = 172.0
+offset_top = 12.0
+offset_right = 212.0
+offset_bottom = 35.0
+theme = ExtResource("8_u4sk5")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 16
+text = "00"
+
+[node name="LevelTimer" type="Timer" parent="."]
+wait_time = 90.0
+one_shot = true
+autostart = true
+
+[node name="Label" type="Label" parent="LevelTimer"]
+offset_left = 201.0
+offset_top = 12.0
+offset_right = 241.0
+offset_bottom = 35.0
+theme = ExtResource("8_u4sk5")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 16
+text = "0:00"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelTimer"]
+libraries = {
+"": SubResource("AnimationLibrary_52vd8")
+}
+
+[node name="EndTimer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 3.0
+one_shot = true
+
+[node name="Fail" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("10_xbc3m")
+
+[node name="Complete" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("11_l7pvp")
+
+[connection signal="body_entered" from="SuccessZone" to="." method="_on_success_zone_body_entered"]
+[connection signal="body_entered" from="KillZone" to="." method="_on_kill_zone_body_entered"]
+[connection signal="body_entered" from="GhostZone" to="." method="_on_ghost_zone_body_entered"]
+[connection signal="timeout" from="LevelTimer" to="." method="_on_level_timer_timeout"]
+[connection signal="timeout" from="EndTimer" to="." method="_on_end_timer_timeout"]

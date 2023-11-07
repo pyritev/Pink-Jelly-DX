@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://d21t6yba4jkxb"]
+
+[ext_resource type="Script" path="res://scenes/running/player.gd" id="1_jkyne"]
+[ext_resource type="Texture2D" uid="uid://bekxpa4534042" path="res://assets/images/adventure/jelly.png" id="2_is5ol"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kgb1r"]
+size = Vector2(23, 31)
+
+[sub_resource type="Animation" id="Animation_i5xho"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ko5xf"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_1eutb"]
+resource_name = "running"
+length = 0.4
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oksf1"]
+_data = {
+"idle": SubResource("Animation_i5xho"),
+"jump": SubResource("Animation_ko5xf"),
+"running": SubResource("Animation_1eutb")
+}
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_jkyne")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(127.5, 117.5)
+shape = SubResource("RectangleShape2D_kgb1r")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(128, 120)
+limit_left = 0
+limit_top = 0
+limit_right = 896
+limit_bottom = 240
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(128, 117)
+texture = ExtResource("2_is5ol")
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_oksf1")
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "state: balls
+speed: cock
+timer: time"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

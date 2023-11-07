@@ -1,0 +1,106 @@
+[gd_scene load_steps=10 format=3 uid="uid://crvu70mdntofo"]
+
+[ext_resource type="Script" path="res://scenes/gameover.gd" id="1_7kn1l"]
+[ext_resource type="Texture2D" uid="uid://dhv4qraaahdnl" path="res://assets/images/gameover.png" id="1_v0157"]
+[ext_resource type="Texture2D" uid="uid://bm5xpe6ijop2m" path="res://assets/images/gameover_text.png" id="2_fsmta"]
+[ext_resource type="AudioStream" uid="uid://c0kwxo0pfu0qg" path="res://assets/music/gameover.wav" id="3_vplqe"]
+[ext_resource type="Texture2D" uid="uid://bekxpa4534042" path="res://assets/images/adventure/jelly.png" id="4_roxkk"]
+[ext_resource type="PackedScene" uid="uid://douxekunkpi4k" path="res://scenes/ui/fade_transition.tscn" id="5_r7cfq"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mi1i5"]
+load_path = "res://.godot/imported/gameover_text.png-683831d8d5428d7df87563e32b398059.ctex"
+
+[sub_resource type="Animation" id="Animation_yqqfd"]
+resource_name = "Text Slide"
+length = 5.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Game:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-36, 52), Vector2(91, 52), Vector2(95, 52), Vector2(91, 52)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Over:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(292, 52), Vector2(163, 52), Vector2(159, 52), Vector2(163, 52)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4, 0.6, 0.75, 0.95),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(128, -18), Vector2(128, 123), Vector2(128, 115), Vector2(128, 123)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jn0l1"]
+_data = {
+"Text Slide": SubResource("Animation_yqqfd")
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_7kn1l")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+texture_filter = 1
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_v0157")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 256.0
+offset_bottom = 240.0
+color = Color(0.484375, 0.03125, 0, 1)
+
+[node name="Game" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-32.7845, 52)
+texture = ExtResource("2_fsmta")
+hframes = 2
+
+[node name="Over" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(288.732, 52)
+texture = SubResource("CompressedTexture2D_mi1i5")
+hframes = 2
+frame = 1
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vplqe")
+bus = &"Music"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Text Slide"
+libraries = {
+"": SubResource("AnimationLibrary_jn0l1")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(128, -18)
+texture = ExtResource("4_roxkk")
+hframes = 5
+frame = 4
+
+[node name="FadeTransition" parent="." instance=ExtResource("5_r7cfq")]
+
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]

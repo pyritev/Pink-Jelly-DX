@@ -1,0 +1,106 @@
+[gd_scene load_steps=3 format=3 uid="uid://wh68ffevv3o5"]
+
+[ext_resource type="Script" path="res://scenes/ui/text.gd" id="1_lone4"]
+[ext_resource type="Texture2D" uid="uid://dv1r2ewshmml2" path="res://assets/images/ui/score_numbers.png" id="2_2yejh"]
+
+[node name="Text" type="CenterContainer"]
+offset_right = 104.0
+offset_bottom = 8.0
+size_flags_horizontal = 0
+script = ExtResource("1_lone4")
+
+[node name="Control" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 8
+
+[node name="Control" type="Control" parent="Control"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Control"]
+position = Vector2(-1327.5, -103)
+texture = ExtResource("2_2yejh")
+hframes = 2
+vframes = 5
+
+[node name="Control2" type="Control" parent="Control"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Control2"]
+position = Vector2(-1327.5, -103)
+texture = ExtResource("2_2yejh")
+hframes = 2
+vframes = 5
+
+[node name="Control3" type="Control" parent="Control"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Control3"]
+position = Vector2(-1327.5, -103)
+texture = ExtResource("2_2yejh")
+hframes = 2
+vframes = 5
+
+[node name="Control4" type="Control" parent="Control"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Control4"]
+position = Vector2(-1327.5, -103)
+texture = ExtResource("2_2yejh")
+hframes = 2
+vframes = 5
+
+[node name="Control5" type="Control" parent="Control"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Control5"]
+position = Vector2(-1327.5, -103)
+texture = ExtResource("2_2yejh")
+hframes = 2
+vframes = 5
+
+[node name="Control6" type="Control" parent="Control"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Control6"]
+position = Vector2(-1327.5, -103)
+texture = ExtResource("2_2yejh")
+hframes = 2
+vframes = 5
+
+[node name="Sprite2D2" type="Sprite2D" parent="Control/Control6"]
+position = Vector2(-1327.5, -103)
+texture = ExtResource("2_2yejh")
+hframes = 2
+vframes = 5
+
+[node name="Sprite2D3" type="Sprite2D" parent="Control/Control6"]
+position = Vector2(-1327.5, -103)
+texture = ExtResource("2_2yejh")
+hframes = 2
+vframes = 5
+
+[node name="Sprite2D4" type="Sprite2D" parent="Control/Control6"]
+position = Vector2(-1327.5, -103)
+texture = ExtResource("2_2yejh")
+hframes = 2
+vframes = 5
+
+[node name="Sprite2D5" type="Sprite2D" parent="Control/Control6"]
+position = Vector2(-1327.5, -103)
+texture = ExtResource("2_2yejh")
+hframes = 2
+vframes = 5
+
+[node name="Sprite2D6" type="Sprite2D" parent="Control/Control6"]
+position = Vector2(-1327.5, -103)
+texture = ExtResource("2_2yejh")
+hframes = 2
+vframes = 5
+
+[node name="Sprite2D7" type="Sprite2D" parent="Control/Control6"]
+position = Vector2(-1327.5, -103)
+texture = ExtResource("2_2yejh")
+hframes = 2
+vframes = 5

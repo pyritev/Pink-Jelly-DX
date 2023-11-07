@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://m34w4ufq23hf"]
+
+[ext_resource type="Script" path="res://scenes/motorboat/hum_death.gd" id="1_1jtjh"]
+[ext_resource type="Texture2D" uid="uid://bs2srrcag2o0n" path="res://assets/images/motorboat/humdead.png" id="1_k4224"]
+[ext_resource type="AudioStream" uid="uid://co0va0ufyw3be" path="res://assets/sfx/fail.wav" id="3_xjm28"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4lm5y"]
+size = Vector2(21, 22)
+
+[sub_resource type="Animation" id="Animation_vypmf"]
+resource_name = "flyup"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-30, 0), Vector2(30, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sjnkf"]
+_data = {
+"flyup": SubResource("Animation_vypmf")
+}
+
+[node name="HumDeath" type="CharacterBody2D"]
+visible = false
+position = Vector2(-11.88, 0)
+collision_layer = 256
+collision_mask = 256
+script = ExtResource("1_1jtjh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_k4224")
+offset = Vector2(17.5018, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(17.38, 7)
+shape = SubResource("RectangleShape2D_4lm5y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "flyup"
+libraries = {
+"": SubResource("AnimationLibrary_sjnkf")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+autostart = true
+
+[node name="Death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_xjm28")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

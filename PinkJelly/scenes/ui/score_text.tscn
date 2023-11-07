@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://c81k420eruqhu"]
+
+[ext_resource type="Script" path="res://scenes/ui/score_text.gd" id="1_e27tn"]
+[ext_resource type="Texture2D" uid="uid://dv1r2ewshmml2" path="res://assets/images/ui/score_numbers.png" id="1_jf30k"]
+
+[node name="Score" type="Node2D"]
+script = ExtResource("1_e27tn")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 256.0
+offset_bottom = 240.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 8
+
+[node name="Control" type="Control" parent="Control/HBoxContainer"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/HBoxContainer/Control"]
+texture = ExtResource("1_jf30k")
+hframes = 2
+vframes = 5
+
+[node name="Control2" type="Control" parent="Control/HBoxContainer"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/HBoxContainer/Control2"]
+texture = ExtResource("1_jf30k")
+hframes = 2
+vframes = 5
+
+[node name="Control3" type="Control" parent="Control/HBoxContainer"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/HBoxContainer/Control3"]
+texture = ExtResource("1_jf30k")
+hframes = 2
+vframes = 5
+
+[node name="Control4" type="Control" parent="Control/HBoxContainer"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/HBoxContainer/Control4"]
+texture = ExtResource("1_jf30k")
+hframes = 2
+vframes = 5
+
+[node name="Control5" type="Control" parent="Control/HBoxContainer"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/HBoxContainer/Control5"]
+texture = ExtResource("1_jf30k")
+hframes = 2
+vframes = 5
+
+[node name="Control6" type="Control" parent="Control/HBoxContainer"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/HBoxContainer/Control6"]
+texture = ExtResource("1_jf30k")
+hframes = 2
+vframes = 5

@@ -1,0 +1,124 @@
+[gd_scene load_steps=15 format=3 uid="uid://dml4e8tymekbt"]
+
+[ext_resource type="Script" path="res://scenes/Level.gd" id="1_lniph"]
+[ext_resource type="Texture2D" uid="uid://ku77ijcyhyxf" path="res://assets/images/adventure/level/rings.png" id="2_tekao"]
+[ext_resource type="PackedScene" uid="uid://brugnrgwx16j7" path="res://scenes/player/player.tscn" id="3_02ssj"]
+[ext_resource type="AudioStream" uid="uid://cnwuokyyhhe8g" path="res://assets/sfx/complete.wav" id="4_b4b2l"]
+[ext_resource type="AudioStream" uid="uid://w4nlhppoeef1" path="res://assets/music/jelly_music1.ogg" id="5_ms3lv"]
+[ext_resource type="PackedScene" uid="uid://dspx5ieb4klrr" path="res://scenes/objects/log.tscn" id="6_a4v7v"]
+[ext_resource type="PackedScene" uid="uid://bektbkojadc7y" path="res://scenes/objects/bobcat.tscn" id="7_2or54"]
+[ext_resource type="PackedScene" uid="uid://cdp0atcsjk7jj" path="res://scenes/objects/crow.tscn" id="8_m7ppd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rlwot"]
+size = Vector2(256, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sv0wn"]
+size = Vector2(20, 308)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tq3uu"]
+size = Vector2(128, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5btke"]
+size = Vector2(64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vfety"]
+size = Vector2(12, 208)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbtrj"]
+size = Vector2(259.5, 47.5)
+
+[node name="Level" type="Node2D"]
+position = Vector2(128, 120)
+script = ExtResource("1_lniph")
+
+[node name="Backgrounds" type="Sprite2D" parent="."]
+z_index = -3
+texture_filter = 1
+texture = ExtResource("2_tekao")
+hframes = 3
+vframes = 4
+frame = 2
+
+[node name="FallPlane" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FallPlane"]
+position = Vector2(0, 107.5)
+shape = SubResource("RectangleShape2D_rlwot")
+
+[node name="LevelBounds" type="StaticBody2D" parent="."]
+collision_layer = 8388609
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelBounds"]
+position = Vector2(-138, -34)
+shape = SubResource("RectangleShape2D_sv0wn")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="LevelBounds"]
+position = Vector2(138, -34)
+shape = SubResource("RectangleShape2D_sv0wn")
+
+[node name="GroundCollision" type="StaticBody2D" parent="."]
+collision_layer = 8388609
+collision_mask = 8388613
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundCollision"]
+position = Vector2(-64, 104)
+shape = SubResource("RectangleShape2D_tq3uu")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="GroundCollision"]
+position = Vector2(96, 104)
+shape = SubResource("RectangleShape2D_5btke")
+
+[node name="SuccessPlane" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SuccessPlane"]
+position = Vector2(122, -16)
+shape = SubResource("RectangleShape2D_vfety")
+
+[node name="BirdBounds" type="StaticBody2D" parent="."]
+collision_layer = 2048
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BirdBounds"]
+position = Vector2(1, -84)
+shape = SubResource("RectangleShape2D_mbtrj")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BirdBounds"]
+position = Vector2(-0.5, 113)
+shape = SubResource("RectangleShape2D_mbtrj")
+
+[node name="Player" parent="." instance=ExtResource("3_02ssj")]
+position = Vector2(-111, 72)
+
+[node name="Complete" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("4_b4b2l")
+bus = &"Music"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ms3lv")
+bus = &"Music"
+
+[node name="Log" parent="." instance=ExtResource("6_a4v7v")]
+position = Vector2(5, 95)
+collision_layer = 2
+safe_margin = 2.0
+max_movement = 25
+speed = 64
+type = 1
+
+[node name="Bobcat" parent="." instance=ExtResource("7_2or54")]
+position = Vector2(-20, 73)
+variant = 1
+
+[node name="Crow" parent="." instance=ExtResource("8_m7ppd")]
+position = Vector2(-77, 26)
+variant = 1
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 2
+wait_time = 3.0
+one_shot = true
+
+[connection signal="body_entered" from="FallPlane" to="." method="_on_fall_plane_body_entered"]
+[connection signal="body_entered" from="SuccessPlane" to="." method="_on_success_plane_body_entered" flags=18]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

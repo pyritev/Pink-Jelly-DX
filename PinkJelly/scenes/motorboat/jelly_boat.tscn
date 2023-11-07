@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://cskr15myh4dgg"]
+
+[ext_resource type="Script" path="res://scenes/motorboat/jelly_boat.gd" id="1_8y6wv"]
+[ext_resource type="Texture2D" uid="uid://ctuoexknj7t7" path="res://assets/images/motorboat/jelly.png" id="1_yp30k"]
+[ext_resource type="AudioStream" uid="uid://cuh2poyotdmbl" path="res://assets/sfx/motorboat_bounce.wav" id="3_e7es2"]
+
+[sub_resource type="Animation" id="Animation_r27w1"]
+resource_name = "idle"
+length = 0.25
+loop_mode = 1
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sttjn"]
+_data = {
+"idle": SubResource("Animation_r27w1")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jymg"]
+size = Vector2(32, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ldwvb"]
+size = Vector2(31, 30)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_8y6wv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_yp30k")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_sttjn")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_2jymg")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 5)
+shape = SubResource("RectangleShape2D_ldwvb")
+
+[node name="Bounce" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_e7es2")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

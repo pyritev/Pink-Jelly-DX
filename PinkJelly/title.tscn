@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqii6da5ddiai"]
+
+[ext_resource type="Texture2D" uid="uid://bgoqaqu8n4xsp" path="res://assets/images/title/maintitle.png" id="1_4nd17"]
+[ext_resource type="Script" path="res://title.gd" id="1_f8fhu"]
+[ext_resource type="AudioStream" uid="uid://bflmn4iyvxl02" path="res://assets/music/title.ogg" id="2_br6qb"]
+[ext_resource type="PackedScene" uid="uid://7jjwno3po0ls" path="res://scenes/snowflake_gen.tscn" id="2_g6dmb"]
+[ext_resource type="AudioStream" uid="uid://724oebl6vrdu" path="res://assets/sfx/accept.wav" id="4_vmla3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ociuq"]
+size = Vector2(256, 18)
+
+[node name="Title" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_f8fhu")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -2
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 240.0
+color = Color(0, 0.239216, 1, 1)
+
+[node name="Title" type="Node2D" parent="."]
+position = Vector2(126, 122)
+
+[node name="Snowflakes" parent="Title" instance=ExtResource("2_g6dmb")]
+position = Vector2(-126, -122)
+
+[node name="Sprite2D" type="Sprite2D" parent="Title"]
+texture_filter = 1
+texture = ExtResource("1_4nd17")
+metadata/_edit_group_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_br6qb")
+autoplay = true
+bus = &"Music"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(128, 264)
+shape = SubResource("RectangleShape2D_ociuq")
+
+[node name="Accept" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_vmla3")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,203 @@
+[gd_scene load_steps=25 format=3 uid="uid://diopxr2cfwx1k"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_1u276"]
+[ext_resource type="Texture2D" uid="uid://bekxpa4534042" path="res://assets/images/adventure/jelly.png" id="2_wwdcp"]
+[ext_resource type="AudioStream" uid="uid://bcnagytwfd7ev" path="res://assets/sfx/jellydie.wav" id="3_280nn"]
+[ext_resource type="AudioStream" uid="uid://l1x8u6xtd3gi" path="res://assets/sfx/jump.wav" id="4_gffmf"]
+[ext_resource type="AudioStream" uid="uid://c525s2yu0664a" path="res://assets/sfx/door_open.wav" id="5_6abl4"]
+[ext_resource type="AudioStream" uid="uid://b4tfte2gpitfn" path="res://assets/sfx/powerup.wav" id="6_0iaxj"]
+[ext_resource type="AudioStream" uid="uid://ymof3hhfqr7l" path="res://assets/sfx/superjump.wav" id="7_bag4t"]
+[ext_resource type="AudioStream" uid="uid://gcokuud1vni0" path="res://assets/sfx/crash.wav" id="8_4ehmf"]
+[ext_resource type="AudioStream" uid="uid://dymjb8nccciof" path="res://assets/sfx/fall.wav" id="9_jkwhj"]
+[ext_resource type="Script" path="res://scenes/player/state_machine.gd" id="10_hktqu"]
+[ext_resource type="Script" path="res://scenes/player/idle_state.gd" id="11_oelai"]
+[ext_resource type="Script" path="res://scenes/player/walking_state.gd" id="12_qv4gg"]
+[ext_resource type="Script" path="res://scenes/player/jump_state.gd" id="13_wh72n"]
+[ext_resource type="Script" path="res://scenes/player/crouch_state.gd" id="14_6lxu3"]
+[ext_resource type="Script" path="res://scenes/player/groundpound_state.gd" id="15_pe7nk"]
+[ext_resource type="Script" path="res://scenes/player/death_state.gd" id="16_xje2d"]
+[ext_resource type="Script" path="res://scenes/player/bounce_state.gd" id="17_t5ng6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kn2pt"]
+size = Vector2(14, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_746n1"]
+size = Vector2(14, 23)
+
+[sub_resource type="Animation" id="Animation_2umbl"]
+resource_name = "crouch"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_eucsb"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_8mclo"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_uimb4"]
+resource_name = "walking"
+length = 0.6
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fl5mp"]
+_data = {
+"crouch": SubResource("Animation_2umbl"),
+"idle": SubResource("Animation_eucsb"),
+"jump": SubResource("Animation_8mclo"),
+"walking": SubResource("Animation_uimb4")
+}
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 3
+script = ExtResource("1_1u276")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_wwdcp")
+hframes = 5
+frame = 4
+
+[node name="Regular" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kn2pt")
+
+[node name="Crouched" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_746n1")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_fl5mp")
+}
+
+[node name="Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_280nn")
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_gffmf")
+
+[node name="Respawn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_6abl4")
+
+[node name="Charge" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_0iaxj")
+
+[node name="SuperJump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_bag4t")
+volume_db = 5.0
+
+[node name="CrashSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_4ehmf")
+
+[node name="FallSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_jkwhj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 179.0
+offset_top = 6.0
+offset_right = 219.0
+offset_bottom = 32.0
+text = "peed"
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("10_hktqu")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("11_oelai")
+
+[node name="Walking" type="Node" parent="StateMachine"]
+script = ExtResource("12_qv4gg")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("13_wh72n")
+hori_flip = false
+
+[node name="Crouch" type="Node" parent="StateMachine"]
+script = ExtResource("14_6lxu3")
+can_walk = false
+
+[node name="Groundpound" type="Node" parent="StateMachine"]
+script = ExtResource("15_pe7nk")
+can_walk = false
+can_jump = false
+
+[node name="Death" type="Node" parent="StateMachine"]
+script = ExtResource("16_xje2d")
+can_walk = false
+
+[node name="Bounce" type="Node" parent="StateMachine"]
+script = ExtResource("17_t5ng6")
+hori_flip = false
+
+[node name="CrouchTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AftTimer" type="Timer" parent="."]
+wait_time = 0.06
+one_shot = true
+
+[node name="DeathTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AfterImages" type="Node2D" parent="."]
+
+[connection signal="timeout" from="CrouchTimer" to="StateMachine/Crouch" method="_on_crouch_timer_timeout"]
+[connection signal="timeout" from="CooldownTimer" to="StateMachine/Groundpound" method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

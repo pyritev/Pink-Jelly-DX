@@ -1,0 +1,182 @@
+[gd_scene load_steps=13 format=3 uid="uid://cryu7iy5v3wtd"]
+
+[ext_resource type="Script" path="res://scenes/theduck/duck_game.gd" id="1_7mkqc"]
+[ext_resource type="Texture2D" uid="uid://ku77ijcyhyxf" path="res://assets/images/adventure/level/rings.png" id="2_qm4if"]
+[ext_resource type="PackedScene" uid="uid://dhgfova83ux56" path="res://scenes/theduck/cursor_duck.tscn" id="4_6vljh"]
+[ext_resource type="AudioStream" uid="uid://hsfumopxjkhn" path="res://assets/music/copyright.ogg" id="5_0flas"]
+[ext_resource type="AudioStream" uid="uid://bdn4jy2yp7abp" path="res://assets/music/fish.ogg" id="5_lnynf"]
+[ext_resource type="AudioStream" uid="uid://cptkqqyoaqdnq" path="res://assets/sfx/kong.wav" id="5_srsk5"]
+[ext_resource type="AudioStream" uid="uid://co0va0ufyw3be" path="res://assets/sfx/fail.wav" id="6_nuqsf"]
+[ext_resource type="Theme" uid="uid://b6spl8q4o8g5t" path="res://assets/comic.tres" id="8_gltku"]
+[ext_resource type="PackedScene" uid="uid://c81k420eruqhu" path="res://scenes/ui/score_text.tscn" id="9_7n3kp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7u3ah"]
+size = Vector2(276, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h03e3"]
+size = Vector2(482, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b5e13"]
+size = Vector2(368, 384)
+
+[node name="TheDuck" type="Node2D"]
+script = ExtResource("1_7mkqc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(128, 120)
+texture = ExtResource("2_qm4if")
+hframes = 3
+vframes = 4
+
+[node name="Cursor" parent="." instance=ExtResource("4_6vljh")]
+position = Vector2(141, 87)
+movement_speed = 200
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("5_0flas")
+autoplay = true
+bus = &"Music"
+
+[node name="Hurry" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("5_lnynf")
+bus = &"Music"
+
+[node name="Vertical" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vertical"]
+position = Vector2(128, -10)
+shape = SubResource("RectangleShape2D_7u3ah")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Vertical"]
+position = Vector2(128, 250)
+shape = SubResource("RectangleShape2D_7u3ah")
+
+[node name="Horizontal" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Horizontal"]
+position = Vector2(-11, 118)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_7u3ah")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Horizontal"]
+position = Vector2(266, 118)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_7u3ah")
+
+[node name="Left" type="Node2D" parent="."]
+position = Vector2(-11, 118)
+
+[node name="Right" type="Node2D" parent="."]
+position = Vector2(266, 118)
+
+[node name="Ducks" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+autostart = true
+
+[node name="Area2D2" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(151, 287)
+shape = SubResource("RectangleShape2D_h03e3")
+
+[node name="Area2D3" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3"]
+position = Vector2(146, -36)
+shape = SubResource("RectangleShape2D_h03e3")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(128, -10)
+shape = SubResource("RectangleShape2D_7u3ah")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(128, 250)
+shape = SubResource("RectangleShape2D_7u3ah")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-11, 118)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_7u3ah")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(266, 118)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_7u3ah")
+
+[node name="Complete" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("5_srsk5")
+
+[node name="Fail" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("6_nuqsf")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 172.0
+offset_top = 12.0
+offset_right = 212.0
+offset_bottom = 35.0
+theme = ExtResource("8_gltku")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 16
+text = "00"
+
+[node name="EndTimer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 3.0
+one_shot = true
+
+[node name="LevelTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+autostart = true
+
+[node name="Label" type="Label" parent="LevelTimer"]
+offset_left = 201.0
+offset_top = 12.0
+offset_right = 241.0
+offset_bottom = 35.0
+theme = ExtResource("8_gltku")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 16
+text = "0:00"
+
+[node name="Score" parent="." instance=ExtResource("9_7n3kp")]
+position = Vector2(20, 17)
+
+[node name="Area2D4" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D4"]
+position = Vector2(131, 131)
+shape = SubResource("RectangleShape2D_b5e13")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="body_entered" from="Area2D3" to="." method="_on_area_2d_3_body_entered"]
+[connection signal="timeout" from="EndTimer" to="." method="_on_end_timer_timeout"]
+[connection signal="timeout" from="LevelTimer" to="." method="_on_level_timer_timeout"]
+[connection signal="body_exited" from="Area2D4" to="." method="_on_area_2d_4_body_exited"]

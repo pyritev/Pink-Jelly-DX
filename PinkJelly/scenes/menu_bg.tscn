@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7ryq5bqyxpek"]
+
+[ext_resource type="Texture2D" uid="uid://c6owboifprn5r" path="res://assets/images/dither2.png" id="1_arprr"]
+[ext_resource type="Texture2D" uid="uid://cdwpmbajqrmp2" path="res://assets/images/blank_border.png" id="2_owpuc"]
+[ext_resource type="Texture2D" uid="uid://cqdxb160jy45q" path="res://assets/images/jelly_border.png" id="3_qak70"]
+[ext_resource type="Texture2D" uid="uid://d1fig6vts8tjk" path="res://assets/images/starbank_text.png" id="4_xjwtv"]
+
+[node name="ColorRect" type="ColorRect"]
+offset_right = 256.0
+offset_bottom = 238.0
+color = Color(0.996094, 0.773438, 0.996094, 1)
+
+[node name="Dither" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 256.0
+offset_bottom = 62.0
+texture = ExtResource("1_arprr")
+stretch_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 240.0
+texture = ExtResource("2_owpuc")
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 240.0
+texture = ExtResource("3_qak70")
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect"]
+visible = false
+layout_mode = 0
+offset_left = 7.0
+offset_top = 15.0
+offset_right = 88.0
+offset_bottom = 30.0
+texture = ExtResource("4_xjwtv")
+stretch_mode = 2
+
+[node name="Dither2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = 193.0
+offset_right = 256.0
+offset_bottom = 225.0
+texture = ExtResource("1_arprr")
+stretch_mode = 1
+flip_v = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_top = 32.0
+offset_right = 256.0
+offset_bottom = 33.0
+color = Color(0.578125, 0.699219, 0, 1)

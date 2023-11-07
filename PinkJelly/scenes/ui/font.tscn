@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://4r3kaxff1lad"]
+
+[ext_resource type="Texture2D" uid="uid://btav110bihr25" path="res://assets/images/ui/font.png" id="1_6cne4"]
+
+[node name="Control" type="Control"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(4, 4)
+texture = ExtResource("1_6cne4")
+hframes = 15
+vframes = 4

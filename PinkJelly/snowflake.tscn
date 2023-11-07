@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://badcqw8aj2tol"]
+
+[ext_resource type="Texture2D" uid="uid://dhss45fs52ki7" path="res://assets/images/title/snowflake.png" id="1_hwn1s"]
+[ext_resource type="Script" path="res://snowflake.gd" id="2_wlnwi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6a2qb"]
+size = Vector2(16, 16)
+
+[node name="Snowflake" type="CharacterBody2D" groups=["Snowflake"]]
+z_index = -1
+z_as_relative = false
+texture_filter = 1
+collision_layer = 8388608
+collision_mask = 8388608
+script = ExtResource("2_wlnwi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hwn1s")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6a2qb")

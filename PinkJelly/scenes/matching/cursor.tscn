@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnogvpijdbyth"]
+
+[ext_resource type="Texture2D" uid="uid://bmpu387woajhj" path="res://assets/images/match/cursor.png" id="1_k3x8c"]
+[ext_resource type="Script" path="res://scenes/matching/cursor.gd" id="1_wpbsg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pm67d"]
+size = Vector2(26, 21)
+
+[node name="Cursor" type="CharacterBody2D"]
+script = ExtResource("1_wpbsg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_k3x8c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6, -4.5)
+shape = SubResource("RectangleShape2D_pm67d")

@@ -1,0 +1,181 @@
+[gd_scene load_steps=14 format=3 uid="uid://4602fdfhfq6b"]
+
+[ext_resource type="Script" path="res://scenes/matching/matching.gd" id="1_8d5ih"]
+[ext_resource type="PackedScene" uid="uid://cnogvpijdbyth" path="res://scenes/matching/cursor.tscn" id="2_6206e"]
+[ext_resource type="Texture2D" uid="uid://bktfb4p4rw2uw" path="res://assets/images/match/match_border.png" id="2_pudns"]
+[ext_resource type="PackedScene" uid="uid://denlqe1x35dqv" path="res://scenes/matching/card.tscn" id="2_wjr2u"]
+[ext_resource type="AudioStream" uid="uid://b7jqk0kd3ajxn" path="res://assets/music/matching.ogg" id="5_c2p6c"]
+[ext_resource type="AudioStream" uid="uid://ce20xltj0n32y" path="res://assets/sfx/nomatch.wav" id="5_kds8p"]
+[ext_resource type="AudioStream" uid="uid://n85idqnqh6r2" path="res://assets/sfx/match.wav" id="6_87qie"]
+[ext_resource type="AudioStream" uid="uid://cptkqqyoaqdnq" path="res://assets/sfx/kong.wav" id="8_j0rny"]
+[ext_resource type="AudioStream" uid="uid://bdn4jy2yp7abp" path="res://assets/music/fish.ogg" id="9_4pj2k"]
+[ext_resource type="AudioStream" uid="uid://co0va0ufyw3be" path="res://assets/sfx/fail.wav" id="9_7k2ld"]
+[ext_resource type="Theme" uid="uid://b6spl8q4o8g5t" path="res://assets/comic.tres" id="9_hal8t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jeetk"]
+size = Vector2(256, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5r7g"]
+size = Vector2(19, 257)
+
+[node name="Matching" type="Node2D"]
+script = ExtResource("1_8d5ih")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 256.0
+offset_bottom = 240.0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 229.0
+
+[node name="ColorRect2" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 229.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+offset_left = 73.0
+offset_top = 70.0
+offset_right = 137.0
+offset_bottom = 326.0
+theme_override_constants/separation = 0
+
+[node name="Row1" type="HBoxContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Node2D" parent="Control/VBoxContainer/Row1" instance=ExtResource("2_wjr2u")]
+position = Vector2(-41, -5)
+
+[node name="Node2D2" parent="Control/VBoxContainer/Row1" instance=ExtResource("2_wjr2u")]
+position = Vector2(23, -5)
+
+[node name="Node2D3" parent="Control/VBoxContainer/Row1" instance=ExtResource("2_wjr2u")]
+position = Vector2(87, -5)
+
+[node name="Node2D4" parent="Control/VBoxContainer/Row1" instance=ExtResource("2_wjr2u")]
+position = Vector2(151, -5)
+
+[node name="Row2" type="HBoxContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Node2D" parent="Control/VBoxContainer/Row2" instance=ExtResource("2_wjr2u")]
+position = Vector2(-41, -5)
+
+[node name="Node2D2" parent="Control/VBoxContainer/Row2" instance=ExtResource("2_wjr2u")]
+position = Vector2(23, -5)
+
+[node name="Node2D3" parent="Control/VBoxContainer/Row2" instance=ExtResource("2_wjr2u")]
+position = Vector2(87, -5)
+
+[node name="Node2D4" parent="Control/VBoxContainer/Row2" instance=ExtResource("2_wjr2u")]
+position = Vector2(151, -5)
+
+[node name="Row3" type="HBoxContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Node2D" parent="Control/VBoxContainer/Row3" instance=ExtResource("2_wjr2u")]
+position = Vector2(-41, -5)
+
+[node name="Node2D2" parent="Control/VBoxContainer/Row3" instance=ExtResource("2_wjr2u")]
+position = Vector2(23, -5)
+
+[node name="Node2D3" parent="Control/VBoxContainer/Row3" instance=ExtResource("2_wjr2u")]
+position = Vector2(87, -5)
+
+[node name="Node2D4" parent="Control/VBoxContainer/Row3" instance=ExtResource("2_wjr2u")]
+position = Vector2(151, -5)
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_pudns")
+metadata/_edit_lock_ = true
+
+[node name="Cursor" parent="." instance=ExtResource("2_6206e")]
+position = Vector2(121, 131)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(128, 16)
+shape = SubResource("RectangleShape2D_jeetk")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(128, 241)
+shape = SubResource("RectangleShape2D_jeetk")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-9.5, 128.5)
+shape = SubResource("RectangleShape2D_c5r7g")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(265.5, 128.5)
+shape = SubResource("RectangleShape2D_c5r7g")
+
+[node name="ShowTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="NoMatch" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_kds8p")
+
+[node name="Match" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("6_87qie")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("5_c2p6c")
+autoplay = true
+bus = &"Music"
+
+[node name="Complete" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_j0rny")
+volume_db = -5.0
+
+[node name="Fail" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("9_7k2ld")
+
+[node name="Hurry" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("9_4pj2k")
+bus = &"Music"
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 2
+wait_time = 3.0
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+autostart = true
+
+[node name="Label" type="Label" parent="Timer2"]
+offset_left = 206.0
+offset_top = 10.0
+offset_right = 246.0
+offset_bottom = 33.0
+theme = ExtResource("9_hal8t")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 16
+text = "0:00"
+
+[connection signal="timeout" from="ShowTimer" to="." method="_on_show_timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
